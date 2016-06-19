@@ -5,10 +5,6 @@
  */
 package com.futbolahora.dominio;
 
-import java.util.Collection;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 /**
  *
@@ -17,7 +13,6 @@ import javax.persistence.Query;
 class Sistema {
     
     private static Sistema instancia;
-    
     
     public static Sistema getInstancia(){
         if (instancia == null) {

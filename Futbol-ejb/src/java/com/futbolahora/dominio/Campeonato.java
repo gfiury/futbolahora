@@ -6,6 +6,7 @@
 package com.futbolahora.dominio;
 
 import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 
 /**
@@ -16,7 +17,11 @@ import javax.persistence.Entity;
 public class Campeonato extends EntidadDominio {
     
     private String nombre;
-    private ArrayList<Partido> partidos;
+    private List<Partido> partidos;
+    
+    public Campeonato(){
+        partidos = new ArrayList<>();
+    }
 
     public String getNombre() {
         return nombre;
@@ -27,6 +32,6 @@ public class Campeonato extends EntidadDominio {
     }
     
     public void agregarPartido(Partido partido){
-        partidos.add(partido);
+        this.partidos.add(partido);
     }
 }

@@ -5,6 +5,8 @@
  */
 package com.futbolahora.dominio.bean;
 
+import com.futbolahora.dominio.Equipo;
+import com.futbolahora.dominio.EquipoDto;
 import com.futbolahora.dominio.Partido;
 import com.futbolahora.dominio.PartidoDto;
 import java.util.ArrayList;

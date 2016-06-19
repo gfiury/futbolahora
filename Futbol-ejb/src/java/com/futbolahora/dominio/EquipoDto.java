@@ -7,11 +7,8 @@ package com.futbolahora.dominio;
 
 import java.io.Serializable;
 
-/**
- *
- * @author Guillermo
- */
-public class PartidoDto implements Serializable {
+
+public class EquipoDto implements Serializable {
     
     private static final long serialVersionUID = 1L;
     

@@ -26,7 +26,7 @@ public class FutbolEventoBean implements FutbolEventoBeanLocal {
             em.persist(eventoPartido);
         }
         catch(Exception ex){
-            
+            throw ex;
         }
     }
 }
