@@ -6,7 +6,10 @@
 package com.futbolahora.dominio.bean;
 
 import com.futbolahora.dominio.Partido;
+import com.futbolahora.dominio.PartidoDto;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -23,15 +26,34 @@ public class FutbolPartidoBean implements FutbolPartidoBeanLocal {
     private EntityManager em;
         
     @Override
-    public Collection<Partido> getPartidos() {
+    public List<PartidoDto> getPartidos() {
         try{
             Query query = em.createQuery("SELECT p FROM Partido p");
-            return (Collection<Partido>) query.getResultList();
+            return toDto((List<Partido>) query.getResultList());
         }
         catch(Exception ex){
             //Error al obtener los partidos
             //se retorna coleccion vacia
             return null;
         }
+    }
+    
+    @Override
+    public PartidoDto findPartidoById(Long id) {
+        return toDto(em.find(Partido.class, id));
+    }
+    
+    private List<PartidoDto> toDto(List<Partido> partidos){
+        List<PartidoDto> partidosDto = new ArrayList<>();
+        partidos.stream().forEach((partido) -> {
+            partidosDto.add(toDto(partido));
+        });
+        return partidosDto;
+    }
+    
+    private PartidoDto toDto(Partido partido) {
+        PartidoDto dto = new PartidoDto();
+        dto.setId(partido.getId());
+        return dto;
     }
 }

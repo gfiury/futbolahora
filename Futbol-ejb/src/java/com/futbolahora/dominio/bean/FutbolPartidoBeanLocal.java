@@ -5,8 +5,8 @@
  */
 package com.futbolahora.dominio.bean;
 
-import com.futbolahora.dominio.Partido;
-import java.util.Collection;
+import com.futbolahora.dominio.PartidoDto;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -16,5 +16,7 @@ import javax.ejb.Local;
 @Local
 public interface FutbolPartidoBeanLocal {
     
-    Collection<Partido> getPartidos();
+    List<PartidoDto> getPartidos();
+    
+    PartidoDto findPartidoById(Long id);
 }
