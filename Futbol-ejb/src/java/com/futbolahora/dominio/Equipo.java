@@ -5,7 +5,9 @@
  */
 package com.futbolahora.dominio;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 
 /**
@@ -13,10 +15,10 @@ import javax.persistence.Entity;
  * @author Guillermo
  */
 @Entity
-public class Equipo extends EntidadDominio {
+public class Equipo extends EntidadDominio implements Serializable {
     
     private String nombre;
-    private ArrayList<Jugador> jugadores;
+    private List<Jugador> jugadores;
     
     public Equipo(){
         jugadores = new ArrayList<>();

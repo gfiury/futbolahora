@@ -6,13 +6,13 @@
 package com.futbolahora.dominio.bean;
 
 import com.futbolahora.dominio.Equipo;
-import com.futbolahora.dominio.EquipoDto;
+import com.futbolahora.dominio.Jugador;
 import com.futbolahora.dominio.Partido;
 import com.futbolahora.dominio.PartidoDto;
 import com.futbolahora.dominio.Sistema;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -23,15 +23,14 @@ import javax.persistence.Query;
  * @author Guillermo
  */
 @Stateless
-public class FutbolPartidoBean implements FutbolPartidoBeanLocal {
+@LocalBean
+public class FutbolPartidoBean {
 
     @PersistenceContext
     private EntityManager em;
         
-    @Override
     public List<PartidoDto> getPartidos() {
         try{
-            Sistema sis = Sistema.getInstancia();
             Query query = em.createQuery("SELECT p FROM Partido p");
             return toDto((List<Partido>) query.getResultList());
         }
@@ -42,7 +41,6 @@ public class FutbolPartidoBean implements FutbolPartidoBeanLocal {
         }
     }
     
-    @Override
     public PartidoDto findPartidoById(Long id) {
         return toDto(em.find(Partido.class, id));
     }
@@ -60,4 +58,5 @@ public class FutbolPartidoBean implements FutbolPartidoBeanLocal {
         dto.setId(partido.getId());
         return dto;
     }
+    
 }

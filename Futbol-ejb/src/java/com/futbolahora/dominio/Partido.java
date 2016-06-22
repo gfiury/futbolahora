@@ -5,10 +5,14 @@
  */
 package com.futbolahora.dominio;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -17,19 +21,28 @@ import javax.persistence.TemporalType;
  * @author Guillermo
  */
 @Entity
-public class Partido extends EntidadDominio {
+public class Partido extends EntidadDominio implements Serializable {
     
     private Estadio estadio;
     @Temporal(TemporalType.DATE)
     private Date fechaComienzoPartido;
+    @ManyToOne
     private Equipo local;
+    @ManyToOne
     private Equipo visitante;
-    private ArrayList<Jugador> jugadoresLocal;
-    private ArrayList<Jugador> jugadoresVisitante;
+    /*@ManyToMany
+    private List<Jugador> jugadoresLocal;
+    @ManyToMany
+    private List<Jugador> jugadoresVisitante;*/
     private int scoreLocal;
     private int scoreVisistante;
     
     //Falta clima
+    
+    public Partido(){
+        //jugadoresLocal = new ArrayList<>();
+        //jugadoresVisitante = new ArrayList<>();
+    }
 
     public Estadio getEstadio() {
         return estadio;
@@ -79,19 +92,27 @@ public class Partido extends EntidadDominio {
         this.scoreVisistante = scoreVisistante;
     }
     
-    public Collection<Jugador> getJugadoresLocal() {
+    /*public List<Jugador> getJugadoresLocal() {
         return jugadoresLocal;
+    }
+
+    public void setJugadoresLocal(List<Jugador> jugadoresLocal) {
+        this.jugadoresLocal = jugadoresLocal;
+    }
+
+    public List<Jugador> getJugadoresVisitante() {
+        return jugadoresVisitante;
+    }
+
+    public void setJugadoresVisitante(List<Jugador> jugadoresVisitante) {
+        this.jugadoresVisitante = jugadoresVisitante;
     }
     
     public void agregarJugadorLocal(Jugador jugador){
         this.jugadoresLocal.add(jugador);
     }
-
-    public Collection<Jugador> getJugadoresVisitante() {
-        return jugadoresVisitante;
-    }
     
     public void agregarJugadorVisitante(Jugador jugador){
         this.jugadoresVisitante.add(jugador);
-    }
+    }*/
 }

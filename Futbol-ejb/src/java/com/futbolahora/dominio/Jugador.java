@@ -5,8 +5,12 @@
  */
 package com.futbolahora.dominio;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -15,7 +19,7 @@ import javax.persistence.TemporalType;
  * @author Guillermo
  */
 @Entity
-public class Jugador extends EntidadDominio {
+public class Jugador extends EntidadDominio implements Serializable {
     
     private String nombreCompleto;
     @Temporal(TemporalType.DATE)
@@ -23,6 +27,9 @@ public class Jugador extends EntidadDominio {
     //private Ciudad ciudadNacimiento;
     private int nroCamiseta;
     //private Posicion posicion;
+    
+    public Jugador(){
+    }
 
     public String getNombreCompleto() {
         return nombreCompleto;

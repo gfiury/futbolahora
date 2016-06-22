@@ -10,6 +10,8 @@ import com.futbolahora.dominio.EquipoDto;
 import com.futbolahora.dominio.Partido;
 import com.futbolahora.dominio.PartidoDto;
 import java.util.List;
+import javax.ejb.Local;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,12 +22,12 @@ import javax.persistence.Query;
  * @author Guillermo
  */
 @Stateless
-public class FutbolEquipoBean implements FutbolEquipoBeanLocal {
+@LocalBean
+public class FutbolEquipoBean {
 
     @PersistenceContext
     private EntityManager em;
         
-    @Override
     public EquipoDto getEquipoLocalByPartidoId(Long id){
         try{
             Query query = em.createQuery("SELECT p.local FROM Partido p where p.id = :partidoId");
@@ -38,7 +40,6 @@ public class FutbolEquipoBean implements FutbolEquipoBeanLocal {
         }
     }
     
-    @Override
     public EquipoDto getEquipoVisitanteByPartidoId(Long id){
         try{
             Query query = em.createQuery("SELECT p.visitante FROM Partido p where p.id = :partidoId");

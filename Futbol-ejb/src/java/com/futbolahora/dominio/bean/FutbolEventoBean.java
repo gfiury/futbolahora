@@ -6,6 +6,7 @@
 package com.futbolahora.dominio.bean;
 
 import com.futbolahora.dominio.EventoPartido;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,12 +16,12 @@ import javax.persistence.PersistenceContext;
  * @author Guillermo
  */
 @Stateless
-public class FutbolEventoBean implements FutbolEventoBeanLocal {
+@LocalBean
+public class FutbolEventoBean {
 
     @PersistenceContext
     private EntityManager em;
         
-    @Override
     public void guardarEvento(EventoPartido eventoPartido){
         try{
             em.persist(eventoPartido);
