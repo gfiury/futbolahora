@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
@@ -30,17 +31,15 @@ public class Partido extends EntidadDominio implements Serializable {
     private Equipo local;
     @ManyToOne
     private Equipo visitante;
-    /*@ManyToMany
     private List<Jugador> jugadoresLocal;
-    @ManyToMany
-    private List<Jugador> jugadoresVisitante;*/
+    //private List<Jugador> jugadoresVisitante;
     private int scoreLocal;
     private int scoreVisistante;
     
     //Falta clima
     
     public Partido(){
-        //jugadoresLocal = new ArrayList<>();
+        jugadoresLocal = new ArrayList<>();
         //jugadoresVisitante = new ArrayList<>();
     }
 
@@ -92,14 +91,22 @@ public class Partido extends EntidadDominio implements Serializable {
         this.scoreVisistante = scoreVisistante;
     }
     
-    /*public List<Jugador> getJugadoresLocal() {
+    @ManyToMany
+    @JoinTable(name="jugadores_local")
+    public List<Jugador> getJugadoresLocal() {
         return jugadoresLocal;
     }
 
     public void setJugadoresLocal(List<Jugador> jugadoresLocal) {
         this.jugadoresLocal = jugadoresLocal;
     }
+    
+    public void agregarJugadorLocal(Jugador jugador){
+        this.jugadoresLocal.add(jugador);
+    }
 
+    /*@ManyToMany
+    @JoinTable(name="jugadores_visitante")
     public List<Jugador> getJugadoresVisitante() {
         return jugadoresVisitante;
     }
@@ -108,11 +115,11 @@ public class Partido extends EntidadDominio implements Serializable {
         this.jugadoresVisitante = jugadoresVisitante;
     }
     
-    public void agregarJugadorLocal(Jugador jugador){
-        this.jugadoresLocal.add(jugador);
-    }
-    
     public void agregarJugadorVisitante(Jugador jugador){
         this.jugadoresVisitante.add(jugador);
-    }*/
+    }
+    */
+    
+    
+    
 }

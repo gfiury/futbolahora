@@ -54,10 +54,10 @@ public class InitBean {
         partido.setLocal(equipoLocal);
         
         Jugador muslera = crearJugador("Fernando Muslera", 1);
-        //partido.agregarJugadorLocal(muslera);
+        partido.agregarJugadorLocal(muslera);
         
         Jugador godin = crearJugador("Diego Godin", 2);
-        //partido.agregarJugadorLocal(godin);
+        partido.agregarJugadorLocal(godin);
         
         Jugador joseG = crearJugador("Josema Gimenez", 3);
         //partido.agregarJugadorLocal(joseG);

@@ -18,10 +18,8 @@ import javax.persistence.Entity;
 public class Equipo extends EntidadDominio implements Serializable {
     
     private String nombre;
-    private List<Jugador> jugadores;
     
     public Equipo(){
-        jugadores = new ArrayList<>();
     }
 
     public String getNombre() {
@@ -31,9 +29,4 @@ public class Equipo extends EntidadDominio implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
-    public void agregarJugador(Jugador jugador){
-        jugadores.add(jugador);
-    }
-    
 }

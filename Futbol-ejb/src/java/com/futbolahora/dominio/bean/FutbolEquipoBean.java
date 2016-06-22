@@ -7,10 +7,6 @@ package com.futbolahora.dominio.bean;
 
 import com.futbolahora.dominio.Equipo;
 import com.futbolahora.dominio.EquipoDto;
-import com.futbolahora.dominio.Partido;
-import com.futbolahora.dominio.PartidoDto;
-import java.util.List;
-import javax.ejb.Local;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -31,6 +27,7 @@ public class FutbolEquipoBean {
     public EquipoDto getEquipoLocalByPartidoId(Long id){
         try{
             Query query = em.createQuery("SELECT p.local FROM Partido p where p.id = :partidoId");
+            Equipo eq = (Equipo)query.setParameter("partidoId", id).getSingleResult();
             return toDto((Equipo)query.setParameter("partidoId", id).getSingleResult());
         }
         catch(Exception ex){
