@@ -9,6 +9,7 @@ import com.futbolahora.dominio.Equipo;
 import com.futbolahora.dominio.EquipoDto;
 import com.futbolahora.dominio.Partido;
 import com.futbolahora.dominio.PartidoDto;
+import com.futbolahora.dominio.Sistema;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -30,6 +31,7 @@ public class FutbolPartidoBean implements FutbolPartidoBeanLocal {
     @Override
     public List<PartidoDto> getPartidos() {
         try{
+            Sistema sis = Sistema.getInstancia();
             Query query = em.createQuery("SELECT p FROM Partido p");
             return toDto((List<Partido>) query.getResultList());
         }

@@ -82,8 +82,16 @@ public class Partido extends EntidadDominio {
     public Collection<Jugador> getJugadoresLocal() {
         return jugadoresLocal;
     }
+    
+    public void agregarJugadorLocal(Jugador jugador){
+        this.jugadoresLocal.add(jugador);
+    }
 
     public Collection<Jugador> getJugadoresVisitante() {
         return jugadoresVisitante;
+    }
+    
+    public void agregarJugadorVisitante(Jugador jugador){
+        this.jugadoresVisitante.add(jugador);
     }
 }

@@ -20,9 +20,9 @@ public class Jugador extends EntidadDominio {
     private String nombreCompleto;
     @Temporal(TemporalType.DATE)
     private Date fechaNacimiento;
-    private Ciudad ciudadNacimiento;
+    //private Ciudad ciudadNacimiento;
     private int nroCamiseta;
-    private Posicion posicion;
+    //private Posicion posicion;
 
     public String getNombreCompleto() {
         return nombreCompleto;
@@ -40,13 +40,13 @@ public class Jugador extends EntidadDominio {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public Ciudad getCiudadNacimiento() {
+    /*public Ciudad getCiudadNacimiento() {
         return ciudadNacimiento;
     }
 
     public void setCiudadNacimiento(Ciudad ciudadNacimiento) {
         this.ciudadNacimiento = ciudadNacimiento;
-    }
+    }*/
 
     public int getNroCamiseta() {
         return nroCamiseta;
@@ -54,20 +54,5 @@ public class Jugador extends EntidadDominio {
 
     public void setNroCamiseta(int nroCamiseta) {
         this.nroCamiseta = nroCamiseta;
-    }
-
-    public Posicion getPosicion() {
-        return posicion;
-    }
-
-    public void setPosicion(Posicion posicion) {
-        this.posicion = posicion;
-    }
-    
-    public enum Posicion{
-        Golero,
-        Defensa,
-        Medio_Campista,
-        Delantero
     }
 }

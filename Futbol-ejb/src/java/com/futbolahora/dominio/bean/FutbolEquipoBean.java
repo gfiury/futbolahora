@@ -25,6 +25,7 @@ public class FutbolEquipoBean implements FutbolEquipoBeanLocal {
     @PersistenceContext
     private EntityManager em;
         
+    @Override
     public EquipoDto getEquipoLocalByPartidoId(Long id){
         try{
             Query query = em.createQuery("SELECT p.local FROM Partido p where p.id = :partidoId");
@@ -37,6 +38,7 @@ public class FutbolEquipoBean implements FutbolEquipoBeanLocal {
         }
     }
     
+    @Override
     public EquipoDto getEquipoVisitanteByPartidoId(Long id){
         try{
             Query query = em.createQuery("SELECT p.visitante FROM Partido p where p.id = :partidoId");

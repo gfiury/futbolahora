@@ -5,6 +5,8 @@
  */
 package com.futbolahora.dominio.bean;
 
+import com.futbolahora.dominio.JugadorDto;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -14,4 +16,7 @@ import javax.ejb.Local;
 @Local
 public interface FutbolJugadorBeanLocal {
     
+    List<JugadorDto> getJugadoresLocalByPartidoId(Long id);
+    List<JugadorDto> getJugadoresVisitanteByPartidoId(Long id);
 }
+

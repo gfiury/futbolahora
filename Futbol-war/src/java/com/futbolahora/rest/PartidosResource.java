@@ -6,6 +6,7 @@
 package com.futbolahora.rest;
 
 import com.futbolahora.dominio.EquipoDto;
+import com.futbolahora.dominio.JugadorDto;
 import com.futbolahora.dominio.PartidoDto;
 import com.futbolahora.dominio.bean.FutbolEquipoBean;
 import com.futbolahora.dominio.bean.FutbolJugadorBean;
@@ -19,7 +20,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -43,7 +43,7 @@ public class PartidosResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getJson(@QueryParam("withBooks") boolean withBooks) {
+    public Response getJson() {
         List<PartidoDto> list = partidoBean.getPartidos();
         return Response.ok().entity(gson.toJson(list)).build();
     }
@@ -75,10 +75,17 @@ public class PartidosResource {
     @GET
     @Path("/{id}/local/jugadores")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getJugadoresLocal(@PathParam("id") Long authorId) {
-        /*List<JugadorDto> list = bookBean.getBooksByAuthorId(bookId);
-        return Response.ok().entity(gson.toJson(list)).build();*/
-        return null;
+    public Response getJugadoresLocal(@PathParam("id") Long id) {
+        List<JugadorDto> list = jugadorBean.getJugadoresLocalByPartidoId(id);
+        return Response.ok().entity(gson.toJson(list)).build();
+    }
+    
+    @GET
+    @Path("/{id}/visitante/jugadores")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getJugadoresVisitante(@PathParam("id") Long id) {
+        List<JugadorDto> list = jugadorBean.getJugadoresVisitanteByPartidoId(id);
+        return Response.ok().entity(gson.toJson(list)).build();
     }
 
     @POST
