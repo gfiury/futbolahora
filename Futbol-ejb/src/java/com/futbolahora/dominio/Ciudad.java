@@ -5,14 +5,16 @@
  */
 package com.futbolahora.dominio;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 /**
  *
  * @author Guillermo
  */
 @Entity
-public class Ciudad extends EntidadDominio {
+public class Ciudad extends EntidadDominio implements Serializable {
     
     private String nombreCiudad;
     private String paisCiudad;

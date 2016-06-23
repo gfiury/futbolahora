@@ -19,6 +19,7 @@ public class CiudadDto implements Serializable {
     private String nombreCiudad;
     private String paisCiudad;
     private String region;
+    private ClimaDto clima;
 
     public Long getId() {
         return id;
@@ -51,6 +52,12 @@ public class CiudadDto implements Serializable {
     public void setRegion(String region) {
         this.region = region;
     }
-    
-    
+
+    public ClimaDto getClima() {
+        return clima;
+    }
+
+    public void setClima(ClimaDto clima) {
+        this.clima = clima;
+    }
 }
