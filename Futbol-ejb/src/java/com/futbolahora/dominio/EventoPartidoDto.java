@@ -6,25 +6,21 @@
 package com.futbolahora.dominio;
 
 import java.util.Date;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  *
  * @author Guillermo
  */
-public abstract class EventoPartido extends EntidadDominio {
+public abstract class EventoPartidoDto {
     
-    
-    private Partido partido;
-    @Temporal(TemporalType.TIME)
+    private PartidoDto partido;
     private Date tiempoEvento;
 
-    public Partido getPartido() {
+    public PartidoDto getPartido() {
         return partido;
     }
 
-    public void setPartido(Partido partido) {
+    public void setPartido(PartidoDto partido) {
         this.partido = partido;
     }
     

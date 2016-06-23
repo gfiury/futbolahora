@@ -21,6 +21,8 @@ import javax.persistence.TemporalType;
 @Entity
 public class Jugador extends EntidadDominio implements Serializable {
     
+    private static final long serialVersionUID = 1L;
+    
     private String nombreCompleto;
     @Temporal(TemporalType.DATE)
     private Date fechaNacimiento;
@@ -48,11 +50,11 @@ public class Jugador extends EntidadDominio implements Serializable {
     }
 
     public Date getFechaNacimiento() {
-        return fechaNacimiento;
+        return (Date)this.fechaNacimiento.clone();
     }
 
     public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
+        this.fechaNacimiento = (Date)fechaNacimiento.clone();
     }
 
     /*public Ciudad getCiudadNacimiento() {

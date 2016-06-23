@@ -26,7 +26,7 @@ public class FutbolClimaBean {
     private final ConcurrentHashMap hashClima;
     private final Client client;
     //Tiempo de 30 Minutos
-    private final long MAX_TIME_CACHE = 1800000;
+    private static final long MAX_TIME_CACHE = 1800000;
     
     public FutbolClimaBean(){
         client = ClientBuilder.newClient();

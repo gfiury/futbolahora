@@ -5,11 +5,15 @@
  */
 package com.futbolahora.dominio;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Guillermo
  */
-public class ClimaDto {
+public class ClimaDto implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
     
     private String clima;
 

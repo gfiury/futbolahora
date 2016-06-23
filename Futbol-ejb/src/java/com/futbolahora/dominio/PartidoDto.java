@@ -33,11 +33,11 @@ public class PartidoDto implements Serializable {
     }
 
     public Date getFechaComienzoPartido() {
-        return fechaComienzoPartido;
+        return (Date)this.fechaComienzoPartido.clone();
     }
 
     public void setFechaComienzoPartido(Date fechaComienzoPartido) {
-        this.fechaComienzoPartido = fechaComienzoPartido;
+        this.fechaComienzoPartido = (Date)fechaComienzoPartido.clone();
     }
 
     public EstadioDto getEstadio() {

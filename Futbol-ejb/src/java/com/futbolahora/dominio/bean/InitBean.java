@@ -10,6 +10,7 @@ import com.futbolahora.dominio.Equipo;
 import com.futbolahora.dominio.Estadio;
 import com.futbolahora.dominio.Jugador;
 import com.futbolahora.dominio.Partido;
+import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.LocalBean;
@@ -56,6 +57,7 @@ public class InitBean {
         
         //PARTIDO
         Partido partido = new Partido();
+        partido.setFechaComienzoPartido(new Date());
         partido.setLocal(equipoLocal);
         partido.setEstadio(estadio);
         
@@ -67,31 +69,31 @@ public class InitBean {
         partido.agregarJugadorLocal(godin);
         
         Jugador joseG = crearJugador("Josema Gimenez", 3);
-        //partido.agregarJugadorLocal(joseG);
+        partido.agregarJugadorLocal(joseG);
         
         Jugador maxiPe = crearJugador("El mono Pereira", 4);
-        //partido.agregarJugadorLocal(maxiPe);
+        partido.agregarJugadorLocal(maxiPe);
         
         Jugador palito = crearJugador("Palito Pereira", 5);
-        //partido.agregarJugadorLocal(palito);
+        partido.agregarJugadorLocal(palito);
         
         Jugador cacha = crearJugador("El cacha", 6);
-        //partido.agregarJugadorLocal(cacha);
+        partido.agregarJugadorLocal(cacha);
         
         Jugador cebolla = crearJugador("El cebolla", 7);
-        //partido.agregarJugadorLocal(cebolla);
+        partido.agregarJugadorLocal(cebolla);
         
         Jugador tata = crearJugador("Tata Gonzalez", 8);
-        //partido.agregarJugadorLocal(tata);
+        partido.agregarJugadorLocal(tata);
         
         Jugador lodeiro = crearJugador("Nicolas Lodeiro", 9);
-        //partido.agregarJugadorLocal(lodeiro);
+        partido.agregarJugadorLocal(lodeiro);
         
         Jugador pato = crearJugador("Pato Sanchez", 12);
-        //partido.agregarJugadorLocal(pato);
+        partido.agregarJugadorLocal(pato);
         
         Jugador suarez = crearJugador("Luis Suarez", 10);
-        //partido.agregarJugadorLocal(suarez);
+        partido.agregarJugadorLocal(suarez);
         
         //EQUIPO VISITANTE
         
@@ -108,31 +110,31 @@ public class InitBean {
         partido.agregarJugadorVisitante(rojo);
         
         Jugador otamendi = crearJugador("Nicolás Otamendi", 3);
-        //partido.agregarJugadorVisitante(otamendi);
+        partido.agregarJugadorVisitante(otamendi);
         
         Jugador mori = crearJugador("Ramiro Funes Mori", 4);
-        //partido.agregarJugadorVisitante(mori);
+        partido.agregarJugadorVisitante(mori);
         
         Jugador mascherano = crearJugador("Javier Mascherano", 5);
-        //partido.agregarJugadorVisitante(mascherano);
+        partido.agregarJugadorVisitante(mascherano);
         
         Jugador banega = crearJugador("Éver Banega", 6);
-        //partido.agregarJugadorVisitante(banega);
+        partido.agregarJugadorVisitante(banega);
         
         Jugador biglia = crearJugador("Lucas Biglia", 7);
-        //partido.agregarJugadorVisitante(biglia);
+        partido.agregarJugadorVisitante(biglia);
         
         Jugador messi = crearJugador("Lionel Messi", 10);
-        //partido.agregarJugadorVisitante(messi);
+        partido.agregarJugadorVisitante(messi);
         
         Jugador higuain = crearJugador("Gonzalo Higuaín", 9);
-        //partido.agregarJugadorVisitante(higuain);
+        partido.agregarJugadorVisitante(higuain);
         
         Jugador diMaria = crearJugador("Angel Di María", 11);
-        //partido.agregarJugadorVisitante(diMaria);
+        partido.agregarJugadorVisitante(diMaria);
         
         Jugador lavezzi = crearJugador("Ezequiel Lavezzi", 8);
-        //partido.agregarJugadorVisitante(lavezzi);
+        partido.agregarJugadorVisitante(lavezzi);
         
         em.persist(partido);
         

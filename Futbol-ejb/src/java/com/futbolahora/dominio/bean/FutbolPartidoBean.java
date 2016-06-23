@@ -5,11 +5,8 @@
  */
 package com.futbolahora.dominio.bean;
 
-import com.futbolahora.dominio.Equipo;
-import com.futbolahora.dominio.Jugador;
 import com.futbolahora.dominio.Partido;
 import com.futbolahora.dominio.PartidoDto;
-import com.futbolahora.dominio.Sistema;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;

@@ -29,6 +29,6 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(com.futbolahora.rest.PruebaResource.class);
+        resources.add(com.futbolahora.rest.PartidosResource.class);
     }
 }

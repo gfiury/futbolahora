@@ -16,6 +16,8 @@ import javax.persistence.Transient;
 @Entity
 public class Ciudad extends EntidadDominio implements Serializable {
     
+    private static final long serialVersionUID = 1L;
+    
     private String nombreCiudad;
     private String paisCiudad;
     private String region;

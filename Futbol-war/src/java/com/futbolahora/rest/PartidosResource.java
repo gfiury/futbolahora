@@ -7,6 +7,7 @@ package com.futbolahora.rest;
 
 import com.futbolahora.dominio.EquipoDto;
 import com.futbolahora.dominio.EstadioDto;
+import com.futbolahora.dominio.EventoGolDto;
 import com.futbolahora.dominio.JugadorDto;
 import com.futbolahora.dominio.PartidoDto;
 import com.futbolahora.dominio.bean.FutbolEquipoBean;
@@ -32,7 +33,7 @@ import javax.ws.rs.core.Response;
  * @author Guillermo
  */
 @Path("partidos")
-public class PruebaResource {
+public class PartidosResource {
 
     @EJB
     private FutbolPartidoBean partidoBean;
@@ -49,7 +50,7 @@ public class PruebaResource {
     private final Gson gson = new Gson();
 
     
-    public PruebaResource() {
+    public PartidosResource() {
     }
     
     @GET
@@ -116,13 +117,15 @@ public class PruebaResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response postJson(String json) {
-        /*AuthorDto author = authorBean.createAuthor(gson.fromJson(json, AuthorDto.class));
+        System.out.println("LLAMOOOO JSON");
+        System.out.println(json);
+        /*AuthorDto author = authorBean.createAuthor(gson.fromJson(json, EventoGolDto.class));
         return Response.status(Response.Status.CREATED).entity(author).build();*/
         return null;
     }
     
     @POST
-    @Path("/{id}/books")
+    @Path("/{id}/eventos")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response postBook(@PathParam("id") Long id, String json) {

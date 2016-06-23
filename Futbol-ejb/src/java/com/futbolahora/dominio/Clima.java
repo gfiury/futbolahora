@@ -15,13 +15,17 @@ public class Clima {
     
     private Date tiempo;
     private String clima;
+    
+    public Clima(){
+        
+    }
 
     public Date getTiempo() {
-        return tiempo;
+        return (Date)this.tiempo.clone();
     }
 
     public void setTiempo(Date tiempo) {
-        this.tiempo = tiempo;
+        this.tiempo = (Date)tiempo.clone();
     }
 
     public String getClima() {

@@ -24,6 +24,8 @@ import javax.persistence.TemporalType;
 @Entity
 public class Partido extends EntidadDominio implements Serializable {
     
+    private static final long serialVersionUID = 1L;
+    
     @ManyToOne
     private Estadio estadio;
     @Temporal(TemporalType.DATE)
@@ -57,11 +59,11 @@ public class Partido extends EntidadDominio implements Serializable {
     }
 
     public Date getFechaComienzoPartido() {
-        return fechaComienzoPartido;
+        return (Date)this.fechaComienzoPartido.clone();
     }
 
     public void setFechaComienzoPartido(Date fechaComienzoPartido) {
-        this.fechaComienzoPartido = fechaComienzoPartido;
+        this.fechaComienzoPartido = (Date)fechaComienzoPartido.clone();
     }
     
     public Equipo getLocal() {

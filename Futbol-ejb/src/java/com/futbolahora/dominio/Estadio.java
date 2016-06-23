@@ -5,6 +5,7 @@
  */
 package com.futbolahora.dominio;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 
 /**
@@ -12,7 +13,9 @@ import javax.persistence.Entity;
  * @author Guillermo
  */
 @Entity
-public class Estadio extends EntidadDominio {
+public class Estadio extends EntidadDominio implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
     
     private String nombre;
     private Ciudad ciudad;

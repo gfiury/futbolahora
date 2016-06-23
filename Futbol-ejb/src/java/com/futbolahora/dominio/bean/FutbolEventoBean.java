@@ -5,7 +5,10 @@
  */
 package com.futbolahora.dominio.bean;
 
+import com.futbolahora.dominio.EventoGol;
+import com.futbolahora.dominio.EventoGolDto;
 import com.futbolahora.dominio.EventoPartido;
+import com.futbolahora.dominio.EventoPartidoDto;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -22,12 +25,32 @@ public class FutbolEventoBean {
     @PersistenceContext
     private EntityManager em;
         
-    public void guardarEvento(EventoPartido eventoPartido){
+    public void guardarEvento(EventoPartidoDto eventoPartido){
         try{
+            TipoEvento tipo = TipoEvento.valueOf(eventoPartido.getClass().getSimpleName());
+            switch(tipo){
+                case EventoGolDto:
+                    
+                    break;
+                default:break;
+            }
             em.persist(eventoPartido);
         }
         catch(Exception ex){
             throw ex;
         }
+    }
+    
+    private EventoGol eventoGolToDto(EventoGolDto dto){
+        //EventoGol evento = eventoGolToEntity();
+        return null;
+    }
+    
+    private EventoGol eventoGolToEntity(EventoGolDto dto){
+        return null;
+    }
+    
+    private enum TipoEvento{
+        EventoGolDto
     }
 }
