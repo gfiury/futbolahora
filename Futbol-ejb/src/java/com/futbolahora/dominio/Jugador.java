@@ -31,13 +31,12 @@ public class Jugador extends EntidadDominio implements Serializable {
     @ManyToMany(mappedBy="jugadoresLocal")
     private List<Partido> partidosLocal;
     
-    /*@ManyToMany(mappedBy="jugadoresVisitante")
-    private List<Partido> partidosVisitante;*/
-    
-    
+    @ManyToMany(mappedBy="jugadoresVisitante")
+    private List<Partido> partidosVisitante;
+  
     public Jugador(){
         partidosLocal = new ArrayList<>();
-        //partidosVisitante = new ArrayList<>();
+        partidosVisitante = new ArrayList<>();
     }
 
     public String getNombreCompleto() {
@@ -72,11 +71,19 @@ public class Jugador extends EntidadDominio implements Serializable {
         this.nroCamiseta = nroCamiseta;
     }
     
-        public List<Partido> getPartidosLocal() {
+    public List<Partido> getPartidosLocal() {
         return partidosLocal;
     }
 
     public void setPartidosLocal(List<Partido> partidosLocal) {
         this.partidosLocal = partidosLocal;
+    }
+    
+    public List<Partido> getPartidosVisitante() {
+        return partidosVisitante;
+    }
+
+    public void setPartidosVisitante(List<Partido> partidosVisitante) {
+        this.partidosVisitante = partidosVisitante;
     }
 }

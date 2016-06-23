@@ -5,7 +5,9 @@
  */
 package com.futbolahora.dominio.bean;
 
+import com.futbolahora.dominio.Ciudad;
 import com.futbolahora.dominio.Equipo;
+import com.futbolahora.dominio.Estadio;
 import com.futbolahora.dominio.Jugador;
 import com.futbolahora.dominio.Partido;
 import javax.annotation.PostConstruct;
@@ -33,26 +35,31 @@ public class InitBean {
     }
     
     private void crearDatosPrueba(){
-        if (em == null) {
-            System.out.println("ESTA VACIOOOOOOOOO");
-        }
-        else{
-            System.out.println("INSTANCIADOOOOOOO");
-        }
-        Partido partido = new Partido();
         
-        System.out.println("INSTANCIO PARTIDO");
+        //CIUDAD
+        Ciudad ciudad = new Ciudad();
+        ciudad.setNombreCiudad("Montevideo");
+        ciudad.setPaisCiudad("Uruguay");
+        ciudad.setRegion("SAM");
+        em.persist(ciudad);
         
+        //ESTADIO
+        Estadio estadio = new Estadio();
+        estadio.setNombre("Centenario");
+        estadio.setCiudad(ciudad);
+        em.persist(estadio);
+        
+        //EQUIPO LOCAL
         Equipo equipoLocal = new Equipo();
         equipoLocal.setNombre("Uruguay");
-        
-        System.out.println("INSTANCIO EQUIPO");
         em.persist(equipoLocal);
         
-        System.out.println("PERSISTIO EQUIPO");
-        
+        //PARTIDO
+        Partido partido = new Partido();
         partido.setLocal(equipoLocal);
+        partido.setEstadio(estadio);
         
+        //JUGADORES LOCAL
         Jugador muslera = crearJugador("Fernando Muslera", 1);
         partido.agregarJugadorLocal(muslera);
         
@@ -86,7 +93,7 @@ public class InitBean {
         Jugador suarez = crearJugador("Luis Suarez", 10);
         //partido.agregarJugadorLocal(suarez);
         
-        //VISITANTE
+        //EQUIPO VISITANTE
         
         Equipo equipoVisitante = new Equipo();
         equipoVisitante.setNombre("Argentina");
@@ -95,10 +102,10 @@ public class InitBean {
         partido.setVisitante(equipoVisitante);
         
         Jugador romero = crearJugador("Sergio Romero", 1);
-        //partido.agregarJugadorVisitante(romero);
+        partido.agregarJugadorVisitante(romero);
         
         Jugador rojo = crearJugador("Marcos Rojo", 2);
-        //partido.agregarJugadorVisitante(rojo);
+        partido.agregarJugadorVisitante(rojo);
         
         Jugador otamendi = crearJugador("Nicolás Otamendi", 3);
         //partido.agregarJugadorVisitante(otamendi);

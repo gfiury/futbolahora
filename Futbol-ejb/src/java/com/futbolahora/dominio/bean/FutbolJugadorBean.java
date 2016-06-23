@@ -29,7 +29,7 @@ public class FutbolJugadorBean {
     public List<JugadorDto> getJugadoresLocalByPartidoId(Long id){
         try{
             Query query = em.createQuery("SELECT p.jugadoresLocal FROM Partido p where p.id = :partidoId");
-            return toDto((List<Jugador>) query.getResultList());
+            return toDto((List<Jugador>) query.setParameter("partidoId", id).getResultList());
         }
         catch(Exception ex){
             //Error al obtener los partidos
@@ -41,7 +41,7 @@ public class FutbolJugadorBean {
     public List<JugadorDto> getJugadoresVisitanteByPartidoId(Long id){
         try{
             Query query = em.createQuery("SELECT p.jugadoresVisitante FROM Partido p where p.id = :partidoId");
-            return toDto((List<Jugador>) query.getResultList());
+            return toDto((List<Jugador>) query.setParameter("partidoId", id).getResultList());
         }
         catch(Exception ex){
             //Error al obtener los partidos

@@ -7,13 +7,17 @@ package com.futbolahora.dominio;
 
 import java.io.Serializable;
 
-
-public class EquipoDto implements Serializable {
+/**
+ *
+ * @author Guillermo
+ */
+public class EstadioDto implements Serializable {
     
     private static final long serialVersionUID = 1L;
     
     private Long id;
     private String nombre;
+    private CiudadDto ciudadDto;
 
     public Long getId() {
         return id;
@@ -29,5 +33,13 @@ public class EquipoDto implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public CiudadDto getCiudadDto() {
+        return ciudadDto;
+    }
+
+    public void setCiudadDto(CiudadDto ciudadDto) {
+        this.ciudadDto = ciudadDto;
     }
 }

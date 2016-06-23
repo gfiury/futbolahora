@@ -6,9 +6,11 @@
 package com.futbolahora.rest;
 
 import com.futbolahora.dominio.EquipoDto;
+import com.futbolahora.dominio.EstadioDto;
 import com.futbolahora.dominio.JugadorDto;
 import com.futbolahora.dominio.PartidoDto;
 import com.futbolahora.dominio.bean.FutbolEquipoBean;
+import com.futbolahora.dominio.bean.FutbolEstadioBean;
 import com.futbolahora.dominio.bean.FutbolJugadorBean;
 import com.futbolahora.dominio.bean.FutbolPartidoBean;
 import com.google.gson.Gson;
@@ -41,6 +43,9 @@ public class PruebaResource {
     @EJB
     private FutbolJugadorBean jugadorBean;
     
+    @EJB
+    private FutbolEstadioBean estadioBean;
+    
     private final Gson gson = new Gson();
 
     
@@ -65,6 +70,14 @@ public class PruebaResource {
     public Response getPartido(@PathParam("id") Long id) {
         PartidoDto dto = partidoBean.findPartidoById(id);
         return Response.ok().entity(gson.toJson(dto)).build();
+    }
+    
+    @GET
+    @Path("/{id}/estadio")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getEstadio(@PathParam("id") Long id) {
+        EstadioDto estadio = estadioBean.getEstadioByPartidoId(id);
+        return Response.ok().entity(estadio).build();
     }
     
     @GET

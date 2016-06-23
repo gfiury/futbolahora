@@ -7,10 +7,10 @@ package com.futbolahora.dominio;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -24,6 +24,7 @@ import javax.persistence.TemporalType;
 @Entity
 public class Partido extends EntidadDominio implements Serializable {
     
+    @ManyToOne
     private Estadio estadio;
     @Temporal(TemporalType.DATE)
     private Date fechaComienzoPartido;
@@ -31,8 +32,12 @@ public class Partido extends EntidadDominio implements Serializable {
     private Equipo local;
     @ManyToOne
     private Equipo visitante;
+    @ManyToMany(fetch=FetchType.EAGER)
+    @JoinTable(name="jugadores_local")
     private List<Jugador> jugadoresLocal;
-    //private List<Jugador> jugadoresVisitante;
+    @ManyToMany(fetch=FetchType.EAGER)
+    @JoinTable(name="jugadores_visitante")
+    private List<Jugador> jugadoresVisitante;
     private int scoreLocal;
     private int scoreVisistante;
     
@@ -40,7 +45,7 @@ public class Partido extends EntidadDominio implements Serializable {
     
     public Partido(){
         jugadoresLocal = new ArrayList<>();
-        //jugadoresVisitante = new ArrayList<>();
+        jugadoresVisitante = new ArrayList<>();
     }
 
     public Estadio getEstadio() {
@@ -91,8 +96,6 @@ public class Partido extends EntidadDominio implements Serializable {
         this.scoreVisistante = scoreVisistante;
     }
     
-    @ManyToMany
-    @JoinTable(name="jugadores_local")
     public List<Jugador> getJugadoresLocal() {
         return jugadoresLocal;
     }
@@ -105,8 +108,6 @@ public class Partido extends EntidadDominio implements Serializable {
         this.jugadoresLocal.add(jugador);
     }
 
-    /*@ManyToMany
-    @JoinTable(name="jugadores_visitante")
     public List<Jugador> getJugadoresVisitante() {
         return jugadoresVisitante;
     }
@@ -117,9 +118,6 @@ public class Partido extends EntidadDominio implements Serializable {
     
     public void agregarJugadorVisitante(Jugador jugador){
         this.jugadoresVisitante.add(jugador);
-    }
-    */
-    
-    
+    } 
     
 }

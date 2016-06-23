@@ -12,6 +12,7 @@ import com.futbolahora.dominio.PartidoDto;
 import com.futbolahora.dominio.Sistema;
 import java.util.ArrayList;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -28,6 +29,12 @@ public class FutbolPartidoBean {
 
     @PersistenceContext
     private EntityManager em;
+    
+    @EJB
+    private FutbolEquipoBean equipoBean;
+    
+    @EJB
+    private FutbolEstadioBean estadioBean;
         
     public List<PartidoDto> getPartidos() {
         try{
@@ -56,6 +63,12 @@ public class FutbolPartidoBean {
     private PartidoDto toDto(Partido partido) {
         PartidoDto dto = new PartidoDto();
         dto.setId(partido.getId());
+        dto.setEstadio(estadioBean.toDto(partido.getEstadio()));
+        dto.setLocal(equipoBean.toDto(partido.getLocal()));
+        dto.setVisitante(equipoBean.toDto(partido.getVisitante()));
+        dto.setFechaComienzoPartido(partido.getFechaComienzoPartido());
+        dto.setScoreLocal(partido.getScoreLocal());
+        dto.setScoreVisitante(partido.getScoreVisistante());
         return dto;
     }
     

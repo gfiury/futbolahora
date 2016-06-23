@@ -27,7 +27,6 @@ public class FutbolEquipoBean {
     public EquipoDto getEquipoLocalByPartidoId(Long id){
         try{
             Query query = em.createQuery("SELECT p.local FROM Partido p where p.id = :partidoId");
-            Equipo eq = (Equipo)query.setParameter("partidoId", id).getSingleResult();
             return toDto((Equipo)query.setParameter("partidoId", id).getSingleResult());
         }
         catch(Exception ex){
@@ -49,9 +48,10 @@ public class FutbolEquipoBean {
         }
     }
     
-    private EquipoDto toDto(Equipo equipo) {
+    public EquipoDto toDto(Equipo equipo) {
         EquipoDto dto = new EquipoDto();
         dto.setId(equipo.getId());
+        dto.setNombre(equipo.getNombre());
         return dto;
     }
 }
