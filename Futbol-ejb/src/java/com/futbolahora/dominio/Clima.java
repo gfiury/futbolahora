@@ -17,7 +17,6 @@ public class Clima {
     private String clima;
     
     public Clima(){
-        
     }
 
     public Date getTiempo() {
@@ -35,5 +34,4 @@ public class Clima {
     public void setClima(String clima) {
         this.clima = clima;
     }
-    
 }
