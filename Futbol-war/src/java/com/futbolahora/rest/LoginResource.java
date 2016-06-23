@@ -1,37 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.futbolahora.rest;
 
-//import javax.json.JsonObject;
-import javax.json.Json;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.UriInfo;
+import com.futbolahora.dominio.bean.UserCodeBean;
+import com.futbolahora.dominio.bean.UserTokenBean;
+//import javax.json.Json;
+//import javax.ws.rs.core.Context;
+//import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
-import javax.ws.rs.Consumes;
+//import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-//import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-//import javax.ws.rs.PUT;
-//import javax.ws.rs.client.Client;
-//import javax.ws.rs.client.ClientBuilder;
-//import javax.ws.rs.client.Entity;
-//import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-//import javax.ws.rs.client.Invocation.Builder;
 import com.google.gson.Gson;
-//import com.google.gson.GsonBuilder;
-
+import com.google.gson.GsonBuilder;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import javax.ejb.EJB;
 import javax.net.ssl.HttpsURLConnection;
+import javax.ws.rs.PathParam;
 
 
 /**
@@ -41,6 +31,13 @@ import javax.net.ssl.HttpsURLConnection;
  */
 @Path("login")
 public class LoginResource {
+    
+    @EJB
+    private UserCodeBean userCodeBean;
+    
+    @EJB
+    private UserTokenBean userTokenBean;
+    
     private final Gson gson = new Gson();
 
     public LoginResource() throws Exception{
@@ -49,26 +46,23 @@ public class LoginResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response login() throws MalformedURLException, IOException {
+        UserCodeBean userCodeBean;
+        Gson transformer = new GsonBuilder().create(); 
         
-        String responseStr = "";
         String url = "https://accounts.google.com/o/oauth2/device/code";
         URL obj = new URL(url);
         HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
 
         //add reuqest header
         con.setRequestMethod("POST");
-        //con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
         con.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
         String urlParameters = "client_id=580821823936-t6i61f73a5nri81thor6k8ffo9ukfkdu.apps.googleusercontent.com&scope=email profile";
 
-        // Send post request
         con.setDoOutput(true);
         DataOutputStream wr = new DataOutputStream(con.getOutputStream());
         wr.writeBytes(urlParameters);
         wr.flush();
         wr.close();
-
-        int responseCode = con.getResponseCode();
         
         BufferedReader in = new BufferedReader(
         new InputStreamReader(con.getInputStream()));
@@ -79,24 +73,65 @@ public class LoginResource {
                 response.append(inputLine);
         }
         in.close();
+                
+        userCodeBean = transformer.fromJson(response.toString(), UserCodeBean.class);
         
-        //responseStr = response.toString();
-        for (int i = 0; i < response.length() -1; i++) {
-            char indice = response.charAt(i);
-            if(indice != '"'){
-                responseStr += indice;
-            }
-            else{
-                responseStr += "\"";
-            }
-        }
-        //'"'
-        //print result
-        //System.out.println(response.toString());
-
-        
-        return Response.ok().entity(gson.toJson(responseStr)).build();
+        /*
+        ThreadPoll poll = new ThreadPoll(userCodeBean.getDevice_code(),"580821823936-t6i61f73a5nri81thor6k8ffo9ukfkdu.apps.googleusercontent.com","byRqHI3PuIzmGD6XoAOv0w7h");
+        poll.start();
+        */
+        return Response.ok().entity(gson.toJson(userCodeBean)).build();
        
-       //return "holaa mundo";
     }
+    
+    @GET
+    @Path("/{deviceCode}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAuthor(@PathParam("deviceCode") Long deviceCode) throws MalformedURLException, IOException {
+        Gson transformer = new GsonBuilder().create();
+        
+        UserTokenBean userTokenBean;
+        String clientId = "580821823936-t6i61f73a5nri81thor6k8ffo9ukfkdu.apps.googleusercontent.com";
+        String clientSecret = "byRqHI3PuIzmGD6XoAOv0w7h";
+        
+        String url = "https://www.googleapis.com/oauth2/v4/token";
+        URL obj = new URL(url);
+        HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
+
+        //add reuqest header
+        con.setRequestMethod("POST");
+        con.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
+        String urlParameters = "client_id=" + clientId + "&client_secret=" + clientSecret + "&code=" + deviceCode + "&grant_type=http://oauth.net/grant_type/device/1.0";
+
+        con.setDoOutput(true);
+        DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+        wr.writeBytes(urlParameters);
+        wr.flush();
+        wr.close();
+        
+        int responseCode = con.getResponseCode();
+        
+        if (responseCode != 400){
+            
+            BufferedReader in = new BufferedReader(
+            new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+
+            while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+            }
+            in.close();
+
+            userTokenBean = transformer.fromJson(response.toString(), UserTokenBean.class);           
+            
+        }
+        
+        
+        
+        
+        return null;//Response.ok().entity(gson.toJson(dto)).build();
+    }
+    
+   
 }

@@ -8,12 +8,19 @@ package com.futbolahora.dominio.bean;
 import com.futbolahora.dominio.Ciudad;
 import com.futbolahora.dominio.Clima;
 import com.futbolahora.dominio.ClimaDto;
+import com.futbolahora.dominio.ClimaAccuweather;
 import java.util.Date;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.ejb.Singleton;
 import javax.ejb.LocalBean;
+import javax.json.JsonObject;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import javax.json.JsonArray;
 
 /**
  *
@@ -63,13 +70,30 @@ public class FutbolClimaBean {
             climaRegistrado = new Clima();
             climaRegistrado.setTiempo(horaActual);
             climaRegistrado.setClima(getClimaAccuWeahter(ciudad));
+            hashClima.put(ciudad, climaRegistrado);
         }
         
         return toDto(climaRegistrado);
     }
     
     private String getClimaAccuWeahter(Ciudad ciudad){
-        return "Soleado";
+        
+        Client client;
+        WebTarget target;
+        Gson transformer = new GsonBuilder().create(); 
+        ClimaAccuweather climaAccuweather = new ClimaAccuweather();
+        
+        client = ClientBuilder.newClient();
+        
+        target = client.target("http://dataservice.accuweather.com/currentconditions/v1/349269?apikey=UgipgbtgQCzFDQvsCHCpmlE3s0UDH5nG");
+        
+        JsonArray responseClima = target.request(MediaType.APPLICATION_JSON).get(JsonArray.class);
+        
+        
+        climaAccuweather = transformer.fromJson(responseClima.getJsonObject(0).toString(), ClimaAccuweather.class);
+        //regionBean = transformer.fromJson(responseRegiones.getJsonObject(i).toString(), RegionBean.class);
+        
+        return climaAccuweather.getWeatherText();
     }
     
     //Diferencia es mayor, se refresca clima
