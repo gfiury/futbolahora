@@ -6,6 +6,7 @@
 package com.futbolahora.dominio;
 
 import java.util.Date;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -13,6 +14,7 @@ import javax.persistence.TemporalType;
  *
  * @author Guillermo
  */
+@MappedSuperclass
 public abstract class EventoPartido extends EntidadDominio {
     
     

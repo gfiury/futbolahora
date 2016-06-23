@@ -26,9 +26,7 @@ public class Jugador extends EntidadDominio implements Serializable {
     private String nombreCompleto;
     @Temporal(TemporalType.DATE)
     private Date fechaNacimiento;
-    //private Ciudad ciudadNacimiento;
     private int nroCamiseta;
-    //private Posicion posicion;
     
     @ManyToMany(mappedBy="jugadoresLocal")
     private List<Partido> partidosLocal;
@@ -50,20 +48,12 @@ public class Jugador extends EntidadDominio implements Serializable {
     }
 
     public Date getFechaNacimiento() {
-        return (Date)this.fechaNacimiento.clone();
+        return this.fechaNacimiento;
     }
 
     public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = (Date)fechaNacimiento.clone();
+        this.fechaNacimiento = fechaNacimiento;
     }
-
-    /*public Ciudad getCiudadNacimiento() {
-        return ciudadNacimiento;
-    }
-
-    public void setCiudadNacimiento(Ciudad ciudadNacimiento) {
-        this.ciudadNacimiento = ciudadNacimiento;
-    }*/
 
     public int getNroCamiseta() {
         return nroCamiseta;

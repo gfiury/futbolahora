@@ -25,6 +25,10 @@ public class FutbolJugadorBean {
 
     @PersistenceContext
     private EntityManager em;
+    
+    public JugadorDto findJugadorById(Long id){
+        return toDto(em.find(Jugador.class, id));
+    }
         
     public List<JugadorDto> getJugadoresLocalByPartidoId(Long id){
         try{
@@ -58,9 +62,12 @@ public class FutbolJugadorBean {
         return jugadoresDto;
     }
     
-    private JugadorDto toDto(Jugador jugador) {
+    public JugadorDto toDto(Jugador jugador) {
         JugadorDto dto = new JugadorDto();
         dto.setId(jugador.getId());
+        dto.setFechaNacimiento(jugador.getFechaNacimiento());
+        dto.setNombreCompleto(jugador.getNombreCompleto());
+        dto.setNroCamiseta(jugador.getNroCamiseta());
         return dto;
     }
 }

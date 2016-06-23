@@ -23,6 +23,10 @@ public class FutbolEquipoBean {
 
     @PersistenceContext
     private EntityManager em;
+    
+    public EquipoDto findEquipoById(Long id){
+        return toDto(em.find(Equipo.class, id));
+    }
         
     public EquipoDto getEquipoLocalByPartidoId(Long id){
         try{

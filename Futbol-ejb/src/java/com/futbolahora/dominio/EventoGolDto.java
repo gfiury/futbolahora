@@ -5,28 +5,48 @@
  */
 package com.futbolahora.dominio;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Guillermo
  */
-public class EventoGolDto extends EventoPartidoDto {
+public class EventoGolDto extends EventoPartidoDto implements Serializable {
     
-    private EquipoDto equipoDto;
-    private JugadorDto jugadorDto;
+    private static final long serialVersionUID = 1L;
+        
+    private EquipoDto equipo;
+    private JugadorDto jugador;
 
     public EquipoDto getEquipo() {
-        return equipoDto;
+        return equipo;
     }
 
     public void setEquipo(EquipoDto equipo) {
-        this.equipoDto = equipo;
+        this.equipo = equipo;
     }
 
     public JugadorDto getJugador() {
-        return jugadorDto;
+        return jugador;
     }
 
     public void setJugador(JugadorDto jugador) {
-        this.jugadorDto = jugador;
-    }   
+        this.jugador = jugador;
+    }
+
+    @Override
+    public String toString() {
+        /*String str = "GOOOOOL de " + equipo.toString();
+        str += "\nJugador: " + jugador.toString();
+        str += "\nTiempo: " + getTiempoEvento().toString();
+        
+        str += "\nPARTIDO " + getPartido().getLocal() + " vs " + 
+        getPartido().getVisitante();
+        
+        return str;*/
+        
+        return "Datos del Evento no disponibles";
+    }
+    
+    
 }

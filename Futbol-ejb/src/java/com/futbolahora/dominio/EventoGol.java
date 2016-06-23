@@ -5,13 +5,20 @@
  */
 package com.futbolahora.dominio;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+
 /**
  *
  * @author Guillermo
  */
-public class EventoGol extends EventoPartido {
+@Entity
+public class EventoGol extends EventoPartido implements Serializable {
     
+    @ManyToOne
     private Equipo equipo;
+    @ManyToOne
     private Jugador jugador;
 
     public Equipo getEquipo() {

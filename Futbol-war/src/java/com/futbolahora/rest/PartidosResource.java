@@ -9,9 +9,11 @@ import com.futbolahora.dominio.EquipoDto;
 import com.futbolahora.dominio.EstadioDto;
 import com.futbolahora.dominio.EventoGolDto;
 import com.futbolahora.dominio.JugadorDto;
+import com.futbolahora.dominio.Partido;
 import com.futbolahora.dominio.PartidoDto;
 import com.futbolahora.dominio.bean.FutbolEquipoBean;
 import com.futbolahora.dominio.bean.FutbolEstadioBean;
+import com.futbolahora.dominio.bean.FutbolEventoGolBean;
 import com.futbolahora.dominio.bean.FutbolJugadorBean;
 import com.futbolahora.dominio.bean.FutbolPartidoBean;
 import com.google.gson.Gson;
@@ -46,6 +48,9 @@ public class PartidosResource {
     
     @EJB
     private FutbolEstadioBean estadioBean;
+    
+    @EJB
+    private FutbolEventoGolBean eventoBean;
     
     private final Gson gson = new Gson();
 
@@ -114,25 +119,24 @@ public class PartidosResource {
     }
 
     @POST
+    @Path("/{id}/eventoGol")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response postJson(String json) {
-        System.out.println("LLAMOOOO JSON");
-        System.out.println(json);
-        /*AuthorDto author = authorBean.createAuthor(gson.fromJson(json, EventoGolDto.class));
-        return Response.status(Response.Status.CREATED).entity(author).build();*/
-        return null;
-    }
-    
-    @POST
-    @Path("/{id}/eventos")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response postBook(@PathParam("id") Long id, String json) {
-        /*AuthorDto authorDto = authorBean.findAuthorById(id);
-        BookDto bookDto = authorBean.addBook(authorDto, gson.fromJson(json, BookDto.class));
-        return Response.status(Response.Status.CREATED).entity(bookDto).build();*/
-        return null;
+        try{
+            EventoGolDto dto = gson.fromJson(json, EventoGolDto.class);
+            
+            PartidoDto partido = partidoBean.findPartidoById(dto.getPartido().getId());
+            EquipoDto equipo = equipoBean.findEquipoById(dto.getEquipo().getId());
+            JugadorDto jugador = jugadorBean.findJugadorById(dto.getJugador().getId());
+            
+            EventoGolDto evento = eventoBean.addEventoGol(equipo, jugador, partido, dto);
+            return Response.status(Response.Status.CREATED).entity(evento).build();
+        }
+        catch(Exception ex){
+            System.out.println(ex.getMessage());
+            return null;
+        }
     }
 
 }

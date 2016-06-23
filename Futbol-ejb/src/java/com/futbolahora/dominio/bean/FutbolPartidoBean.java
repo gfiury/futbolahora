@@ -57,7 +57,7 @@ public class FutbolPartidoBean {
         return partidosDto;
     }
     
-    private PartidoDto toDto(Partido partido) {
+    public PartidoDto toDto(Partido partido) {
         PartidoDto dto = new PartidoDto();
         dto.setId(partido.getId());
         dto.setEstadio(estadioBean.toDto(partido.getEstadio()));

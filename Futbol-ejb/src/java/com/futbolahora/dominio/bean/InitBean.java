@@ -42,6 +42,7 @@ public class InitBean {
         ciudad.setNombreCiudad("Montevideo");
         ciudad.setPaisCiudad("Uruguay");
         ciudad.setRegion("SAM");
+        ciudad.setLocationKey("349269");
         em.persist(ciudad);
         
         //ESTADIO

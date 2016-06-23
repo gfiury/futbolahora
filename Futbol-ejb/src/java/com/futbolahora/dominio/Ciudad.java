@@ -21,6 +21,7 @@ public class Ciudad extends EntidadDominio implements Serializable {
     private String nombreCiudad;
     private String paisCiudad;
     private String region;
+    private String locationKey;
 
     public String getNombreCiudad() {
         return nombreCiudad;
@@ -44,6 +45,14 @@ public class Ciudad extends EntidadDominio implements Serializable {
 
     public void setRegion(String region) {
         this.region = region;
+    }
+
+    public String getLocationKey() {
+        return locationKey;
+    }
+
+    public void setLocationKey(String locationKey) {
+        this.locationKey = locationKey;
     }
     
 }

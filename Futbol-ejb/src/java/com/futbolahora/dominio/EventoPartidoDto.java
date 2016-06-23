@@ -13,9 +13,18 @@ import java.util.Date;
  */
 public abstract class EventoPartidoDto {
     
+    private Long id;
     private PartidoDto partido;
     private Date tiempoEvento;
+    
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
     public PartidoDto getPartido() {
         return partido;
     }
