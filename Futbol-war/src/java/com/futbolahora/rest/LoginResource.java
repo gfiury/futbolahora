@@ -87,7 +87,7 @@ public class LoginResource {
     @GET
     @Path("/{deviceCode}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAuthor(@PathParam("deviceCode") Long deviceCode) throws MalformedURLException, IOException {
+    public Response getSessionID(@PathParam("deviceCode") String deviceCode) throws MalformedURLException, IOException, InterruptedException {
         Gson transformer = new GsonBuilder().create();
         
         UserTokenBean userTokenBean;
@@ -95,37 +95,51 @@ public class LoginResource {
         String clientSecret = "byRqHI3PuIzmGD6XoAOv0w7h";
         
         String url = "https://www.googleapis.com/oauth2/v4/token";
-        URL obj = new URL(url);
-        HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
-
-        //add reuqest header
-        con.setRequestMethod("POST");
-        con.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
-        String urlParameters = "client_id=" + clientId + "&client_secret=" + clientSecret + "&code=" + deviceCode + "&grant_type=http://oauth.net/grant_type/device/1.0";
-
-        con.setDoOutput(true);
-        DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-        wr.writeBytes(urlParameters);
-        wr.flush();
-        wr.close();
         
-        int responseCode = con.getResponseCode();
         
-        if (responseCode != 400){
+        int responseCode = 400;
+        int contador = 0;
+        deviceCode = deviceCode.replace("*", "/");
+        
+        while (responseCode == 400 && contador < 10) {
+            URL obj = new URL(url);
+            HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
             
-            BufferedReader in = new BufferedReader(
-            new InputStreamReader(con.getInputStream()));
-            String inputLine;
-            StringBuffer response = new StringBuffer();
-
-            while ((inputLine = in.readLine()) != null) {
-                    response.append(inputLine);
+            //add reuqest header
+            if (contador == 0){
+                con.setRequestMethod("POST");
+                con.setRequestProperty("Content-Type","application/x-www-form-urlencoded");                            
             }
-            in.close();
+            String urlParameters = "client_id=" + clientId + "&client_secret=" + clientSecret + "&code=" + deviceCode + "&grant_type=http://oauth.net/grant_type/device/1.0";
+            con.setDoOutput(true);
+            DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+            wr.writeBytes(urlParameters);
+            wr.flush();
+            wr.close();
 
-            userTokenBean = transformer.fromJson(response.toString(), UserTokenBean.class);           
+            responseCode = con.getResponseCode();
+            Thread.sleep(5000);
+            contador += 1;
             
+            if (responseCode != 400){
+            
+                BufferedReader in = new BufferedReader(
+                new InputStreamReader(con.getInputStream()));
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+
+                while ((inputLine = in.readLine()) != null) {
+                        response.append(inputLine);
+                }
+                in.close();
+
+                userTokenBean = transformer.fromJson(response.toString(), UserTokenBean.class);           
+
+            }
+            con.disconnect();
         }
+        
+        
         
         
         
